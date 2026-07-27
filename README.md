@@ -33,11 +33,29 @@ This gives you immediate access to CoCo without any local installation.
 <!-- ------------------------ -->
 ## Lab Setup
 
-Before starting the demos, run the setup scripts to create the workshop environment and load sample data. These files are in the `assets/` folder of [this repo](https://github.com/hindcraig3/cortex-code-foundations/tree/main/assets).
+Before starting the demos, set up your workspace and run the setup scripts to create the workshop environment and load sample data.
+
+### Step 0: Create a Git Workspace
+
+Create a Snowflake Workspace connected to this Git repository so all the workshop assets are available directly in Snowsight.
+
+1. Sign in to Snowsight.
+2. In the navigation menu, select **Projects » Workspaces**.
+3. In the Workspaces menu, select **From Git repository**.
+4. Paste the repository URL into the **Repository URL** field:
+   ```
+   https://github.com/sfc-gh-makukreja/cortex-code-foundations
+   ```
+5. Optional: rename the workspace (e.g. `cortex-code-foundations`).
+6. In the **API Integration** menu, select **Github**. If this integration does not exist yet, ask your account admin to create one, or create it yourself if you have the `CREATE API INTEGRATION` privilege.
+7. For the authentication method, select **Public repository** (no credentials required).
+8. Select **Create**.
+
+> **Note:** Because this is a public repository, you can pull and browse files but cannot push changes back to GitHub from this workspace. That is fine for this workshop — all work is done locally in Snowflake.
 
 ### Step 1: Create the Workshop Environment
 
-1. Copy the SQL from the [00_snowday_setup.sql](https://github.com/hindcraig3/cortex-code-foundations/blob/main/assets/00_snowday_setup.sql) file
+1. Open the [00_snowday_setup.sql](https://github.com/sfc-gh-makukreja/cortex-code-foundations/blob/main/assets/00_snowday_setup.sql) file from your workspace
 2. Open Workspaces in Snowsight ( via the Projects --> Workspaces menu)
 3. Add a new SQL File
 4. Paste the SQL into the new file. 
@@ -49,7 +67,7 @@ Before starting the demos, run the setup scripts to create the workshop environm
 
 ### Step 2: Load Sample Data
 
-1. Copy the SQL from the [00_sample_data.sql](https://github.com/hindcraig3/cortex-code-foundations/blob/main/assets/00_sample_data.sql) file
+1. Open the [00_sample_data.sql](https://github.com/sfc-gh-makukreja/cortex-code-foundations/blob/main/assets/00_sample_data.sql) file from your workspace
 2. Add a new SQL File into your Workspace
 3. Paste the SQL into the new file. 
 4. Select "Run All" to run all the statements. This creates and populates:
@@ -106,14 +124,31 @@ For this step we are going to load a dynamic-tables skill into CoCo then get CoC
 
 **1.3.1 - Upload the dynamic-tables skill**
 
-1. Download the [dynamic-tables.zip](https://github.com/hindcraig3/cortex-code-foundations/blob/main/assets/dynamic-tables.zip) file from the `/assets` folder.
+You can load the skill either by uploading a folder manually (Option A) or by asking CoCo to create it from the zip file (Option B).
+
+**Option A — Upload the folder manually**
+
+1. Download the [dynamic-tables.zip](https://github.com/sfc-gh-makukreja/cortex-code-foundations/blob/main/assets/dynamic-tables.zip) file from the `/assets` folder.
 2. Unzip the dynamic-tables.zip. 
 3. In Snowsight click the **+** icon in CoCo and select **Upload skill folder(s)**
 4. Browse to the location where you unzipped the dynamic-tables.zip file. 
-5.Select the folder then click the **upload** button . Note: Select the folder not the zip file. 
+5. Select the folder then click the **upload** button. Note: Select the folder not the zip file. 
 6. When prompted click **Upload skill(s)**
 7. You should see a success message at the top of the screen once it has been uploaded. 
-8. Check it is loaded by typing **/dynamic** into CoCo. You should see the **dynamic-tables** skill appear in the skill list. 
+
+**Option B — Ask CoCo to create the skill**
+
+If the zip file is already in your Snowflake Workspace (e.g. at `/workspace/assets/dynamic-tables.zip`), you can ask CoCo to install it for you directly. Paste the following prompt into CoCo:
+
+```
+Create a new user level skill under the folder /workspace/.snowflake/cortex/skills called dynamic-tables, based on the content of the zip file /workspace/assets/dynamic-tables.zip
+```
+
+CoCo will extract the zip and create the skill files in your workspace automatically.
+
+**Verify the skill is loaded (both options)**
+
+Check it is loaded by typing **/dynamic** into CoCo. You should see the **dynamic-tables** skill appear in the skill list.
 
 **1.3.2 - Get CoCo to design the dynamic table**
 
@@ -199,7 +234,7 @@ A month later, the business sends a set of new requirements for the AP invoices 
 
 ### The new requirements
 
-**Download** the three CSV files prepared by the Finance Transformation PMO in the `assets/` folder of [this repo](https://github.com/hindcraig3/cortex-code-foundations/tree/main/assets). 
+**Download** the three CSV files prepared by the Finance Transformation PMO in the `assets/` folder of [this repo](https://github.com/sfc-gh-makukreja/cortex-code-foundations/tree/main/assets). 
 The files to download are:
 
 - `sample_business_requirements_source_onboarding.csv` — new source systems (Baan, Workday), owners, priorities, and go-live targets
